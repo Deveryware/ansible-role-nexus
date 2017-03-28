@@ -16,4 +16,4 @@
     owner: "{{ nexus_user }}"
     group: "{{ nexus_user }}"
     copy: no
-  when: installed.stat.exists == false
+  when: nexus_update or installed.stat.exists == false

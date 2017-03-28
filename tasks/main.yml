@@ -6,7 +6,7 @@
   register: installed
 
 - include: download.yml
-  when: installed.stat.exists == false
+  when: nexus_update or installed.stat.exists == false
 
 - include: installation.yml
 
