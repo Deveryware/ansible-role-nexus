@@ -33,6 +33,24 @@
 
 **nexus_update:** 'true' or 'false'. Enable to update an installed nexus.
 
+## VM options
+
+You can override some parameters in `bin/nexus.vmoptions`, the default values are below:
+
+    nexus_vmoptions:
+    - key: '-Xms'
+      value: '1200M'
+    - key: '-Xmx'
+      value: '1200M'
+    - key: '-XX:MaxDirectMemorySize='
+      value: '2G'
+    - key: '-XX:LogFile='
+      value: '../sonatype-work/nexus3/log/jvm.log'
+    - key: '-Dkaraf.data='
+      value: '../sonatype-work/nexus3'
+    - key: '-Djava.io.tmpdir='
+      value: '../sonatype-work/nexus3/tmp'
+
 ## License
 
 MIT
