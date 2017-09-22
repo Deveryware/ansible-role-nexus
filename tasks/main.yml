@@ -1,19 +1,19 @@
 ---
-- include: user.yml
+- include_tasks: user.yml
 
 - name: Ensure nexus is installed.
   stat: path="{{ nexus_home_dir }}/bin/nexus"
   register: installed
 
-- include: download.yml
+- include_tasks: download.yml
   when: nexus_update or installed.stat.exists == false
 
-- include: installation.yml
+- include_tasks: installation.yml
 
-- include: configuration.yml
+- include_tasks: configuration.yml
 
-- include: initd.yml
+- include_tasks: initd.yml
 
 - name: Main -  Clean-up
-  include: cleanup.yml
+  include_tasks: cleanup.yml
   when: nexus_cleanup == true
