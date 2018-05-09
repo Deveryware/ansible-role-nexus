@@ -14,6 +14,20 @@
     group: "{{ nexus_group }}"
     state: link
 
+- name: Installation - Ensure blobs directory is present.
+  file:
+    path: "{{ nexus_blobs_dir }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
+    state: directory
+
+- name: Installation - Ensure default blob directory is present.
+  file:
+    path: "{{ nexus_blobs_dir }}/{{ nexus_blob_default }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
+    state: directory
+
 - name: Installation - Ensure nexus user is owner of nexus directory.
   file:
     path: "{{ nexus_versioned_dir }}"
