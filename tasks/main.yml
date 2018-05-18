@@ -2,7 +2,8 @@
 - include_tasks: user.yml
 
 - name: Ensure nexus is installed.
-  stat: path="{{ nexus_home_dir }}/bin/nexus"
+  stat:
+    path: "{{ nexus_home_dir }}/bin/nexus"
   register: installed
 
 - include_tasks: download.yml
