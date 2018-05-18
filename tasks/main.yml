@@ -9,11 +9,11 @@
 - include_tasks: download.yml
   when: nexus_update or installed.stat.exists == false
 
-- include_tasks: installation.yml
-
-- include_tasks: configuration.yml
-
-- include_tasks: initd.yml
+- include_tasks: "{{ item }}"
+  with_items:
+  - installation.yml
+  - configuration.yml
+  - initd.yml
 
 - name: Main -  Clean-up
   include_tasks: cleanup.yml
