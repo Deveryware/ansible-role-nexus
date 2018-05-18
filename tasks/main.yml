@@ -14,6 +14,7 @@
   - installation.yml
   - configuration.yml
   - initd.yml
+  - system_requirements.yml
 
 - name: Main -  Clean-up
   include_tasks: cleanup.yml

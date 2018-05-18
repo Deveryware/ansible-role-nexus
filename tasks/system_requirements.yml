@@ -1,0 +1,16 @@
+---
+- name: System Requirements - Ensure PAM common session is configured.
+  pamd:
+    name: 'common-session'
+    type: session
+    control: required
+    module_path: pam_limits.so
+  notify: restart nexus service
+
+- name: System Requirements - Ensure nexus is defined in PAM Limits.
+  pam_limits:
+    domain: 'nexus'
+    limit_item: 'nofile'
+    limit_type: '-'
+    value: '65536'
+  notify: restart nexus service
