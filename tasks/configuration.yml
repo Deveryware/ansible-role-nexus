@@ -42,20 +42,22 @@
     line: "run_as_user={{ nexus_user }}"
   notify: restart nexus service
 
-- name: Configuration - Uncomment INSTALL4J_JAVA_HOME_OVERRIDE
-  lineinfile:
-    dest: "{{ nexus_home_dir }}/bin/nexus"
-    regexp: "^# INSTALL4J_JAVA_HOME_OVERRIDE="
-    line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
-    backrefs: yes
-  notify: restart nexus service
+- block:
+  - name: Configuration - Uncomment INSTALL4J_JAVA_HOME_OVERRIDE
+    lineinfile:
+      dest: "{{ nexus_home_dir }}/bin/nexus"
+      regexp: "^# INSTALL4J_JAVA_HOME_OVERRIDE="
+      line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
+      backrefs: yes
+    notify: restart nexus service
 
-- name: Configuration - Set INSTALL4J_JAVA_HOME_OVERRIDE
-  lineinfile:
-    dest: "{{ nexus_home_dir }}/bin/nexus"
-    regexp: "^INSTALL4J_JAVA_HOME_OVERRIDE="
-    line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
-  notify: restart nexus service
+  - name: Configuration - Set INSTALL4J_JAVA_HOME_OVERRIDE
+    lineinfile:
+      dest: "{{ nexus_home_dir }}/bin/nexus"
+      regexp: "^INSTALL4J_JAVA_HOME_OVERRIDE="
+      line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
+    notify: restart nexus service
+  when: nexus_java_home is defined
 
 - name: Configuration - nexus-context-path.
   lineinfile:

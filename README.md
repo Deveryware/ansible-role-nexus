@@ -22,7 +22,6 @@
     nexus_application_host: '0.0.0.0'
     nexus_user: 'nexus'
     nexus_group: 'nexus'
-    nexus_java_home: '/usr/lib/jvm/java-8-oracle'
 
 ## Advanced variables
 

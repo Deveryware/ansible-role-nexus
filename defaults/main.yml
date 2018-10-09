@@ -6,7 +6,6 @@ nexus_blobs_dir: "{{ nexus_install_dir }}/sonatype-work/nexus3/blobs"
 nexus_blob_default: 'default'
 nexus_user: 'nexus'
 nexus_group: "{{ nexus_user }}"
-nexus_java_home: '/usr/lib/jvm/java-8-oracle'
 
 nexus_application_port: 8081
 nexus_application_host: '0.0.0.0'
