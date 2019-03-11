@@ -33,7 +33,7 @@
 
 **nexus_update:** 'true' or 'false'. Enable to update an installed nexus.
 
-## VM options
+## VM options
 
 You can override some parameters in `bin/nexus.vmoptions`, the default values are below:
 
