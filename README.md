@@ -8,6 +8,8 @@
 
     http://<server>:8081
 
+The default login credentials are : `admin / admin123`
+
 ## Example Playbook
 
     - hosts: servers
