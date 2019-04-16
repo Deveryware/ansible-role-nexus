@@ -16,6 +16,7 @@
   - vmoptions.yml
   - initd.yml
   - system_requirements.yml
+  - systemd.yml
 
 - name: Main -  Clean-up
   include_tasks: cleanup.yml

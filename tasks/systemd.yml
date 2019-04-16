@@ -1,0 +1,16 @@
+---
+- name: Systemd - Ensure service script is present.
+  become: true
+  template:
+    src:  "nexus.systemd.j2"
+    dest: "/lib/systemd/system/nexus.service"
+    owner: root
+    group: root
+    mode: 0755
+  notify: restart nexus
+
+- name: Systemd - Ensure service is linked into /etc/systemd.
+  file:
+    src: "/lib/systemd/system/nexus.service"
+    dest: "/etc/systemd/system/nexus.service"
+    state: link
