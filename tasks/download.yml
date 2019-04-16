@@ -1,6 +1,7 @@
 ---
 - name: Download - Check the downloaded file.
-  stat: path="{{ nexus_install_dir }}/nexus-unix.tar.gz"
+  stat:
+    path: "{{ nexus_install_dir }}/nexus-unix.tar.gz"
   register: downloaded
 
 - name: Download - Download Nexus installation file.
