@@ -1,5 +1,13 @@
 ---
-- include_tasks: user.yml
+- name: Ensure nexus group is created.
+  group:
+    name: "{{ nexus_group }}"
+
+- name: Ensure nexus user is created
+  user:
+    name: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
+    createhome: no
 
 - name: Ensure nexus is installed.
   stat:
@@ -17,6 +25,14 @@
   - initd.yml
   - system_requirements.yml
   - systemd.yml
+
+- name: Ensure nexus user shell and home are defined.
+  user:
+    name: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
+    shell: "/bin/bash"
+    home: "{{ nexus_home_dir }}"
+    createhome: no
 
 - name: Main -  Clean-up
   include_tasks: cleanup.yml
