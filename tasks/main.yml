@@ -25,6 +25,7 @@
   - initd.yml
   - system_requirements.yml
   - systemd.yml
+  - fabric.yml
   loop_control:
     loop_var: tasks
 
