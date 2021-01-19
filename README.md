@@ -53,6 +53,15 @@ You can override some parameters in `bin/nexus.vmoptions`, the default values ar
     - key: '-Djava.io.tmpdir='
       value: '../sonatype-work/nexus3/tmp'
 
+## Elasticsearch customization
+
+You can override the cluster routing allocation parameters with this kind of arborescence :
+
+    cluster_routing_allocation:
+      disk:
+        watermark:
+          low: 5gb
+
 ## License
 
 MIT

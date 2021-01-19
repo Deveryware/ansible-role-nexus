@@ -34,3 +34,16 @@ discovery.zen.ping.multicast.enabled: false
 
 search.default_search_timeout: 5m
 
+# === Cluster Configuration ===
+{% for firstlevel in cluster_routing_allocation %}
+{% for secondlevel in cluster_routing_allocation[firstlevel] %}
+{% if cluster_routing_allocation[firstlevel][secondlevel] is mapping %}
+{% for thirdlevel in cluster_routing_allocation[firstlevel][secondlevel] %}
+cluster.routing.allocation.{{ firstlevel }}.{{ secondlevel }}.{{ thirdlevel }}: {{ cluster_routing_allocation[firstlevel][secondlevel][thirdlevel] }}
+{% endfor %}
+{% else %}
+cluster.routing.allocation.{{ firstlevel }}.{{ secondlevel }}: {{ cluster_routing_allocation[firstlevel][secondlevel] }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
