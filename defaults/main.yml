@@ -14,6 +14,6 @@ nexus_context_path: '/'
 nexus_cleanup: true
 nexus_update: false
 
-nexus_service_restart: 'on-abort'
+nexus_service_restart: 'always'
 
 cluster_routing_allocation: []
