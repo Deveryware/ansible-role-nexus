@@ -8,7 +8,7 @@ LimitNOFILE=65536
 ExecStart={{ nexus_home_dir }}/bin/nexus start
 ExecStop={{ nexus_home_dir }}/bin/nexus stop
 User={{ nexus_user }}
-Restart=on-abort
+Restart={{ nexus_service_restart }}
   
 [Install]
 WantedBy=multi-user.target
