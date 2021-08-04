@@ -79,3 +79,10 @@
     regexp: "^application-host="
     line: "application-host={{ nexus_application_host }}"
   notify: restart nexus service
+
+- name: Configuration - nexus.scripts.allowCreation.
+  lineinfile:
+    dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
+    regexp: "^nexus.scripts.allowCreation="
+    line: "nexus.scripts.allowCreation={{ nexus_scripts_allowCreation }}"
+  notify: restart nexus service
