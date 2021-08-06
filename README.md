@@ -24,6 +24,7 @@ The default login credentials are : `admin / admin123`
     nexus_application_host: '0.0.0.0'
     nexus_user: 'nexus'
     nexus_group: 'nexus'
+    nexus_scripts_allowCreation: false
 
 ## Advanced variables
 
@@ -34,6 +35,8 @@ The default login credentials are : `admin / admin123`
 **nexus_cleanup:** 'true' or 'false'. Enable to remove the downloaded tar.gz file.
 
 **nexus_update:** 'true' or 'false'. Enable to update an installed nexus.
+
+**nexus_scripts_allowCreation:** 'true' or 'false'. Default is false. Enable the creation of file on Nexus server via Nexus API (/service/rest/v1/script).
 
 ## VM options
 
