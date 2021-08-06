@@ -6,7 +6,7 @@
     dest: "/lib/systemd/system/nexus.service"
     owner: root
     group: root
-    mode: 0755
+    mode: 0644
   notify: restart nexus service
 
 - name: Systemd - Ensure service is linked into /etc/systemd.

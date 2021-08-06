@@ -15,4 +15,6 @@ nexus_scripts_allowCreation: false
 nexus_cleanup: true
 nexus_update: false
 
+nexus_service_restart: 'always'
+
 cluster_routing_allocation: []
