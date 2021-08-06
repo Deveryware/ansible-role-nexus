@@ -10,6 +10,7 @@ nexus_group: "{{ nexus_user }}"
 nexus_application_port: 8081
 nexus_application_host: '0.0.0.0'
 nexus_context_path: '/'
+nexus_scripts_allowCreation: false
 
 nexus_cleanup: true
 nexus_update: false

@@ -24,6 +24,7 @@ The default login credentials are : `admin / admin123`
     nexus_application_host: '0.0.0.0'
     nexus_user: 'nexus'
     nexus_group: 'nexus'
+    nexus_scripts_allowCreation: false
 
 ## Advanced variables
 
@@ -36,6 +37,8 @@ The default login credentials are : `admin / admin123`
 **nexus_update:** 'true' or 'false'. Enable to update an installed nexus.
 
 **nexus_service_restart:** 'always'. Enable de configure the _systemd.service_ `Restart` (no, on-success, on-failure, on-abnormal, on-watchdog, on-abort).
+
+**nexus_scripts_allowCreation:** 'true' or 'false'. Default is false. Enable the creation of file on Nexus server via Nexus API (/service/rest/v1/script).
 
 ## VM options
 
