@@ -14,3 +14,9 @@
     src: "/lib/systemd/system/nexus.service"
     dest: "/etc/systemd/system/nexus.service"
     state: link
+
+- name: Systemd - Ensure service is linked into /etc/systemd/multi-user.target.wants.
+  file:
+    src: "/lib/systemd/system/nexus.service"
+    dest: "/etc/systemd/system/multi-user.target.wants/nexus.service"
+    state: link
