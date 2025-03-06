@@ -8,5 +8,6 @@
 
 - name: Initd - update-rc.d nexus.
   ansible.builtin.command: "update-rc.d nexus defaults"
+  changed_when: true
   when: initd_symlink.changed
   notify: Restart nexus service

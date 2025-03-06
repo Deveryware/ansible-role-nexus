@@ -43,7 +43,7 @@
 
 - name: Installation - Check sonatype-work.
   ansible.builtin.stat:
-    pathi: "{{ nexus_install_dir }}/sonatype-work"
+    path: "{{ nexus_install_dir }}/sonatype-work"
   register: sonatype_work
 
 - name: Installation - Ensure nexus user is owner of sonatype-work.

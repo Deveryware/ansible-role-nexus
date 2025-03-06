@@ -45,6 +45,7 @@
   notify: Restart nexus service
 
 - name: Set Java Home is defined
+  when: nexus_java_home is defined
   block:
   - name: Configuration - Uncomment INSTALL4J_JAVA_HOME_OVERRIDE
     ansible.builtin.lineinfile:
@@ -60,7 +61,6 @@
       regexp: "^INSTALL4J_JAVA_HOME_OVERRIDE="
       line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
     notify: Restart nexus service
-  when: nexus_java_home is defined
 
 - name: Configuration - nexus-context-path.
   ansible.builtin.lineinfile:

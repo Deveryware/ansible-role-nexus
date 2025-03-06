@@ -1,12 +1,10 @@
 ---
-dependencies: []
-
 galaxy_info:
   author: Olivier Locard
   description: Nexus for Linux
-  company: "Deveryware"
-  license: "license (BSD, MIT)"
-  min_ansible_version: 1.9
+  company: 'Deveryware'
+  license: 'license (BSD, MIT)'
+  min_ansible_version: '1.9'
   platforms:
     - name: Debian
       versions:
@@ -18,3 +16,4 @@ galaxy_info:
     - nexus
     - development
     - storage
+dependencies: []
