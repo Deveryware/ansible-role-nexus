@@ -17,7 +17,7 @@
 - include_tasks: download.yml
   when: nexus_update or installed.stat.exists == false
 
-- include_tasks: "{{ tasks }}"
+- include_tasks: "{{ task }}"
   loop:
   - installation.yml
   - configuration.yml
@@ -27,7 +27,7 @@
   - systemd.yml
   - fabric.yml
   loop_control:
-    loop_var: tasks
+    loop_var: task
 
 - name: Ensure nexus user shell and home are defined.
   user:
