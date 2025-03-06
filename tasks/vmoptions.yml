@@ -1,6 +1,6 @@
 ---
 - name: vmoptions - Ensure nexus.vmoptions is present.
-  file:
+  ansible.builtin.file:
     path: "{{ nexus_install_dir}}/nexus/bin/nexus.vmoptions"
     owner: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
@@ -8,7 +8,7 @@
     state: file
 
 - name: vmoptions - Ensure vm options are configured.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ nexus_install_dir}}/nexus/bin/nexus.vmoptions"
     regexp: "^{{ item.key }}"
     line: "{{ item.key }}{{ item.value }}"

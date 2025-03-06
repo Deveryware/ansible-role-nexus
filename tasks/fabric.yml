@@ -1,9 +1,9 @@
 ---
 - name: Fabric - Ensure elasticsearch configuration is present.
   become: true
-  template:
+  ansible.builtin.template:
     src:  "elasticsearch.yml.j2"
-    dest: "{{ nexus_install_dir}}/nexus/etc/fabric/elasticsearch.yml"
+    dest: "{{ nexus_install_dir }}/nexus/etc/fabric/elasticsearch.yml"
     owner: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
     mode: 0644

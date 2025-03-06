@@ -1,12 +1,12 @@
 ---
 - name: Initd - Create init.d symlink.
-  file:
+  ansible.builtin.file:
     src: "{{ nexus_home_dir }}/bin/nexus"
     dest: "/etc/init.d/nexus"
     state: link
   register: initd_symlink
 
 - name: Initd - update-rc.d nexus.
-  command: "update-rc.d nexus defaults"
+  ansible.builtin.command: "update-rc.d nexus defaults"
   when: initd_symlink.changed
   notify: restart nexus service

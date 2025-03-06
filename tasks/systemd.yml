@@ -1,7 +1,7 @@
 ---
 - name: Systemd - Ensure service script is present.
   become: true
-  template:
+  ansible.builtin.template:
     src:  "nexus.systemd.j2"
     dest: "/lib/systemd/system/nexus.service"
     owner: root
@@ -10,13 +10,13 @@
   notify: restart nexus service
 
 - name: Systemd - Ensure service is linked into /etc/systemd.
-  file:
+  ansible.builtin.file:
     src: "/lib/systemd/system/nexus.service"
     dest: "/etc/systemd/system/nexus.service"
     state: link
 
 - name: Systemd - Ensure service is linked into /etc/systemd/multi-user.target.wants.
-  file:
+  ansible.builtin.file:
     src: "/lib/systemd/system/nexus.service"
     dest: "/etc/systemd/system/multi-user.target.wants/nexus.service"
     state: link

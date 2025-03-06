@@ -1,23 +1,23 @@
 ---
 - name: Ensure nexus group is created.
-  group:
+  ansible.builtin.group:
     name: "{{ nexus_group }}"
 
 - name: Ensure nexus user is created
-  user:
+  ansible.builtin.user:
     name: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
     createhome: no
 
 - name: Ensure nexus is installed.
-  stat:
+  ansible.builtin.stat:
     path: "{{ nexus_home_dir }}/bin/nexus"
   register: installed
 
-- include_tasks: download.yml
+- ansible.builtin.include_tasks: download.yml
   when: nexus_update or installed.stat.exists == false
 
-- include_tasks: "{{ tasks }}"
+- ansible.builtin.include_tasks: "{{ task }}"
   loop:
   - installation.yml
   - configuration.yml
@@ -27,10 +27,10 @@
   - systemd.yml
   - fabric.yml
   loop_control:
-    loop_var: tasks
+    loop_var: task
 
 - name: Ensure nexus user shell and home are defined.
-  user:
+  ansible.builtin.user:
     name: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
     shell: "/bin/bash"
@@ -38,5 +38,5 @@
     createhome: no
 
 - name: Main -  Clean-up
-  include_tasks: cleanup.yml
+  ansible.builtin.include_tasks: cleanup.yml
   when: nexus_cleanup == true
