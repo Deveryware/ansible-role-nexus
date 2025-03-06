@@ -8,7 +8,8 @@
     state: link
 
 - name: Configuration - Ensure .bashrc is created.
-  ansible.builtin.stat: path="{{ nexus_home_dir }}/.bashrc"
+  ansible.builtin.stat:
+    path: "{{ nexus_home_dir }}/.bashrc"
   register: user_bashrc
 
 - name: Configuration - Create .bashrc.

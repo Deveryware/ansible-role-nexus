@@ -1,6 +1,9 @@
 ---
 - name: Find installed dir
-  ansible.builtin.find: path="{{ nexus_install_dir }}" patterns="nexus-*" file_type=directory
+  ansible.builtin.find:
+    path: "{{ nexus_install_dir }}"
+    patterns: "nexus-*"
+    file_type: directory
   register: installed_dir
 
 - name: Installation - Versioned Nexus directory.
@@ -39,7 +42,8 @@
     recurse: yes
 
 - name: Installation - Check sonatype-work.
-  ansible.builtin.stat: path="{{ nexus_install_dir }}/sonatype-work"
+  ansible.builtin.stat:
+    pathi: "{{ nexus_install_dir }}/sonatype-work"
   register: sonatype_work
 
 - name: Installation - Ensure nexus user is owner of sonatype-work.
