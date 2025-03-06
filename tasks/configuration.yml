@@ -3,8 +3,8 @@
   ansible.builtin.file:
     src: "{{ nexus_install_dir }}/sonatype-work/nexus3/log"
     dest: '/var/log/nexus'
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
     state: link
 
 - name: Configuration - Ensure .bashrc is created.
@@ -16,8 +16,8 @@
     src: '/etc/skel/.bashrc'
     dest: "{{ nexus_home_dir }}/.bashrc"
     remote_src: yes
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
   when: user_bashrc.stat.exists == false
 
 - name: Configuration - NEXUS_HOME.
@@ -31,7 +31,7 @@
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/bin/nexus.rc"
     regexp: "^#run_as_user="
-    line: "run_as_user={{ nexus_user }}"
+    line: "run_as_user={{ nexus_user }}"
     backrefs: yes
   notify: restart nexus service
 
@@ -39,7 +39,7 @@
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/bin/nexus.rc"
     regexp: "^run_as_user="
-    line: "run_as_user={{ nexus_user }}"
+    line: "run_as_user={{ nexus_user }}"
   notify: restart nexus service
 
 - block:
