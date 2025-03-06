@@ -1,6 +1,6 @@
 ---
 - name: Configuration - Ensure /var/log/nexus symlink is created.
-  file:
+  ansible.builtin.file:
     src: "{{ nexus_install_dir }}/sonatype-work/nexus3/log"
     dest: '/var/log/nexus'
     owner: "{{ nexus_user }}"
@@ -8,11 +8,11 @@
     state: link
 
 - name: Configuration - Ensure .bashrc is created.
-  stat: path="{{ nexus_home_dir }}/.bashrc"
+  ansible.builtin.stat: path="{{ nexus_home_dir }}/.bashrc"
   register: user_bashrc
 
 - name: Configuration - Create .bashrc.
-  copy:
+  ansible.builtin.copy:
     src: '/etc/skel/.bashrc'
     dest: "{{ nexus_home_dir }}/.bashrc"
     remote_src: yes
@@ -21,14 +21,14 @@
   when: user_bashrc.stat.exists == false
 
 - name: Configuration - NEXUS_HOME.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/.bashrc"
     regexp: "^NEXUS_HOME="
     line: "NEXUS_HOME={{ nexus_home_dir }}"
   notify: restart nexus service
 
 - name: Configuration - Uncomment run_as_user.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/bin/nexus.rc"
     regexp: "^#run_as_user="
     line: "run_as_user={{ nexus_user }}"
@@ -36,7 +36,7 @@
   notify: restart nexus service
 
 - name: Configuration - Set run_as_user.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/bin/nexus.rc"
     regexp: "^run_as_user="
     line: "run_as_user={{ nexus_user }}"
@@ -44,7 +44,7 @@
 
 - block:
   - name: Configuration - Uncomment INSTALL4J_JAVA_HOME_OVERRIDE
-    lineinfile:
+    ansible.builtin.lineinfile:
       dest: "{{ nexus_home_dir }}/bin/nexus"
       regexp: "^# INSTALL4J_JAVA_HOME_OVERRIDE="
       line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
@@ -52,7 +52,7 @@
     notify: restart nexus service
 
   - name: Configuration - Set INSTALL4J_JAVA_HOME_OVERRIDE
-    lineinfile:
+    ansible.builtin.lineinfile:
       dest: "{{ nexus_home_dir }}/bin/nexus"
       regexp: "^INSTALL4J_JAVA_HOME_OVERRIDE="
       line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
@@ -60,28 +60,28 @@
   when: nexus_java_home is defined
 
 - name: Configuration - nexus-context-path.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
     regexp: "^nexus-context-path="
     line: "nexus-context-path={{ nexus_context_path }}"
   notify: restart nexus service
 
 - name: Configuration - Jetty application-port.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
     regexp: "^application-port="
     line: "application-port={{ nexus_application_port }}"
   notify: restart nexus service
 
 - name: Configuration - Jetty application-host.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
     regexp: "^application-host="
     line: "application-host={{ nexus_application_host }}"
   notify: restart nexus service
 
 - name: Configuration - nexus.scripts.allowCreation.
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
     regexp: "^nexus.scripts.allowCreation="
     line: "nexus.scripts.allowCreation={{ nexus_scripts_allowCreation }}"
