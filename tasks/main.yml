@@ -14,10 +14,12 @@
     path: "{{ nexus_home_dir }}/bin/nexus"
   register: installed
 
-- ansible.builtin.include_tasks: download.yml
-  when: nexus_update or installed.stat.exists == false
+- name: Download Nexus
+  ansible.builtin.include_tasks: download.yml
+  when: nexus_update or not installed.stat.exists
 
-- ansible.builtin.include_tasks: "{{ task }}"
+- name: Include tasks
+  ansible.builtin.include_tasks: "{{ task }}"
   loop:
   - installation.yml
   - configuration.yml
@@ -39,4 +41,4 @@
 
 - name: Main -  Clean-up
   ansible.builtin.include_tasks: cleanup.yml
-  when: nexus_cleanup == true
+  when: nexus_cleanup

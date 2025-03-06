@@ -1,49 +1,55 @@
 ---
 - name: Find installed dir
-  ansible.builtin.find: path="{{ nexus_install_dir }}" patterns="nexus-*" file_type=directory
+  ansible.builtin.find:
+    path: "{{ nexus_install_dir }}"
+    patterns: "nexus-*"
+    file_type: directory
   register: installed_dir
 
 - name: Installation - Versioned Nexus directory.
   ansible.builtin.set_fact:
-    nexus_versioned_dir: "{{ installed_dir.files[installed_dir.matched-1].path }}"
+    nexus_versioned_dir: "{{ installed_dir.files[installed_dir.matched - 1].path }}"
 
 - name: Installation - Ensure home_dir symlink is created.
   ansible.builtin.file:
     src: "{{ nexus_versioned_dir }}"
     dest: "{{ nexus_install_dir }}/nexus"
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
     state: link
 
 - name: Installation - Ensure blobs directory is present.
   ansible.builtin.file:
     path: "{{ nexus_blobs_dir }}"
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
+    mode: '0775'
     state: directory
 
 - name: Installation - Ensure default blob directory is present.
   ansible.builtin.file:
     path: "{{ nexus_blobs_dir }}/{{ nexus_blob_default }}"
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
+    mode: '0775'
     state: directory
 
 - name: Installation - Ensure nexus user is owner of nexus directory.
   ansible.builtin.file:
     path: "{{ nexus_versioned_dir }}"
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
     recurse: yes
 
 - name: Installation - Check sonatype-work.
-  ansible.builtin.stat: path="{{ nexus_install_dir }}/sonatype-work"
+  ansible.builtin.stat:
+    path: "{{ nexus_install_dir }}/sonatype-work"
   register: sonatype_work
 
 - name: Installation - Ensure nexus user is owner of sonatype-work.
   ansible.builtin.file:
     path: "{{ nexus_install_dir }}/sonatype-work"
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
     recurse: yes
   when: sonatype_work.stat.exists

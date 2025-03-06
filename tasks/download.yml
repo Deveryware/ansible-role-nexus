@@ -8,7 +8,8 @@
   ansible.builtin.get_url:
     url: "{{ nexus_download_url }}"
     dest: "{{ nexus_install_dir }}/nexus-unix.tar.gz"
-  when: downloaded.stat.exists == false
+    mode: '0644'
+  when: not downloaded.stat.exists
 
 - name: Download - Uncompress downloaded file.
   ansible.builtin.unarchive:
@@ -17,4 +18,4 @@
     owner: "{{ nexus_user }}"
     group: "{{ nexus_user }}"
     copy: no
-  when: nexus_update or installed.stat.exists == false
+  when: nexus_update or not installed.stat.exists

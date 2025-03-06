@@ -3,12 +3,13 @@
   ansible.builtin.file:
     src: "{{ nexus_install_dir }}/sonatype-work/nexus3/log"
     dest: '/var/log/nexus'
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
     state: link
 
 - name: Configuration - Ensure .bashrc is created.
-  ansible.builtin.stat: path="{{ nexus_home_dir }}/.bashrc"
+  ansible.builtin.stat:
+    path: "{{ nexus_home_dir }}/.bashrc"
   register: user_bashrc
 
 - name: Configuration - Create .bashrc.
@@ -16,73 +17,75 @@
     src: '/etc/skel/.bashrc'
     dest: "{{ nexus_home_dir }}/.bashrc"
     remote_src: yes
-    owner: "{{ nexus_user }}"
-    group: "{{ nexus_group }}"
-  when: user_bashrc.stat.exists == false
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
+    mode: '0644'
+  when: not user_bashrc.stat.exists
 
 - name: Configuration - NEXUS_HOME.
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/.bashrc"
     regexp: "^NEXUS_HOME="
     line: "NEXUS_HOME={{ nexus_home_dir }}"
-  notify: restart nexus service
+  notify: Restart nexus service
 
 - name: Configuration - Uncomment run_as_user.
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/bin/nexus.rc"
     regexp: "^#run_as_user="
-    line: "run_as_user={{ nexus_user }}"
+    line: "run_as_user={{ nexus_user }}"
     backrefs: yes
-  notify: restart nexus service
+  notify: Restart nexus service
 
 - name: Configuration - Set run_as_user.
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/bin/nexus.rc"
     regexp: "^run_as_user="
-    line: "run_as_user={{ nexus_user }}"
-  notify: restart nexus service
+    line: "run_as_user={{ nexus_user }}"
+  notify: Restart nexus service
 
-- block:
+- name: Set Java Home is defined
+  when: nexus_java_home is defined
+  block:
   - name: Configuration - Uncomment INSTALL4J_JAVA_HOME_OVERRIDE
     ansible.builtin.lineinfile:
       dest: "{{ nexus_home_dir }}/bin/nexus"
       regexp: "^# INSTALL4J_JAVA_HOME_OVERRIDE="
       line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
       backrefs: yes
-    notify: restart nexus service
+    notify: Restart nexus service
 
   - name: Configuration - Set INSTALL4J_JAVA_HOME_OVERRIDE
     ansible.builtin.lineinfile:
       dest: "{{ nexus_home_dir }}/bin/nexus"
       regexp: "^INSTALL4J_JAVA_HOME_OVERRIDE="
       line: "INSTALL4J_JAVA_HOME_OVERRIDE={{ nexus_java_home }}"
-    notify: restart nexus service
-  when: nexus_java_home is defined
+    notify: Restart nexus service
 
 - name: Configuration - nexus-context-path.
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
     regexp: "^nexus-context-path="
     line: "nexus-context-path={{ nexus_context_path }}"
-  notify: restart nexus service
+  notify: Restart nexus service
 
 - name: Configuration - Jetty application-port.
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
     regexp: "^application-port="
     line: "application-port={{ nexus_application_port }}"
-  notify: restart nexus service
+  notify: Restart nexus service
 
 - name: Configuration - Jetty application-host.
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
     regexp: "^application-host="
     line: "application-host={{ nexus_application_host }}"
-  notify: restart nexus service
+  notify: Restart nexus service
 
 - name: Configuration - nexus.scripts.allowCreation.
   ansible.builtin.lineinfile:
     dest: "{{ nexus_home_dir }}/etc/nexus-default.properties"
     regexp: "^nexus.scripts.allowCreation="
     line: "nexus.scripts.allowCreation={{ nexus_scripts_allowCreation }}"
-  notify: restart nexus service
+  notify: Restart nexus service

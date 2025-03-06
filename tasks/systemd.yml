@@ -6,8 +6,8 @@
     dest: "/lib/systemd/system/nexus.service"
     owner: root
     group: root
-    mode: 0644
-  notify: restart nexus service
+    mode: '0644'
+  notify: Restart nexus service
 
 - name: Systemd - Ensure service is linked into /etc/systemd.
   ansible.builtin.file:

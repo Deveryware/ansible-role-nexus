@@ -1,3 +1,5 @@
 ---
 - name: Cleanup - Remove downloaded file
-  ansible.builtin.file: path="{{ nexus_install_dir }}/nexus-unix.tar.gz" state=absent
+  ansible.builtin.file:
+    path: "{{ nexus_install_dir }}/nexus-unix.tar.gz"
+    state: absent
