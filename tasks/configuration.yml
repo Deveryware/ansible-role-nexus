@@ -20,7 +20,7 @@
     owner: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
     mode: '0644'
-  when: user_bashrc.stat.exists == false
+  when: not user_bashrc.stat.exists
 
 - name: Configuration - NEXUS_HOME.
   ansible.builtin.lineinfile:
