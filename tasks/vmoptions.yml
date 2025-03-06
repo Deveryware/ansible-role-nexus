@@ -4,7 +4,7 @@
     path: "{{ nexus_install_dir }}/nexus/bin/nexus.vmoptions"
     owner: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
-    mode: 0644
+    mode: '0644'
     state: file
 
 - name: vmoptions - Ensure vm options are configured.

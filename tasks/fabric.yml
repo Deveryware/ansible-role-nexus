@@ -6,6 +6,5 @@
     dest: "{{ nexus_install_dir }}/nexus/etc/fabric/elasticsearch.yml"
     owner: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
-    mode: 0644
+    mode: '0644'
   notify: restart nexus service
-

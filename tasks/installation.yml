@@ -20,6 +20,7 @@
     path: "{{ nexus_blobs_dir }}"
     owner: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
+    mode: '0775'
     state: directory
 
 - name: Installation - Ensure default blob directory is present.
@@ -27,6 +28,7 @@
     path: "{{ nexus_blobs_dir }}/{{ nexus_blob_default }}"
     owner: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
+    mode: '0775'
     state: directory
 
 - name: Installation - Ensure nexus user is owner of nexus directory.
