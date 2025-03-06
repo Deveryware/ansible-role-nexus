@@ -5,7 +5,7 @@
     type: session
     control: required
     module_path: pam_limits.so
-  notify: restart nexus service
+  notify: Restart nexus service
 
 - name: System Requirements - Ensure nexus is defined in PAM Limits.
   community.general.pam_limits:
@@ -13,4 +13,4 @@
     limit_item: 'nofile'
     limit_type: '-'
     value: '65536'
-  notify: restart nexus service
+  notify: Restart nexus service

@@ -7,4 +7,4 @@
     owner: "{{ nexus_user }}"
     group: "{{ nexus_group }}"
     mode: '0644'
-  notify: restart nexus service
+  notify: Restart nexus service
