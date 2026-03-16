@@ -29,19 +29,13 @@
     line: "NEXUS_HOME={{ nexus_home_dir }}"
   notify: Restart nexus service
 
-- name: Configuration - Uncomment run_as_user.
-  ansible.builtin.lineinfile:
+- name: Configuration - Create nexus.rc with run_as_user.
+  ansible.builtin.copy:
     dest: "{{ nexus_home_dir }}/bin/nexus.rc"
-    regexp: "^#run_as_user="
-    line: "run_as_user={{ nexus_user }}"
-    backrefs: yes
-  notify: Restart nexus service
-
-- name: Configuration - Set run_as_user.
-  ansible.builtin.lineinfile:
-    dest: "{{ nexus_home_dir }}/bin/nexus.rc"
-    regexp: "^run_as_user="
-    line: "run_as_user={{ nexus_user }}"
+    owner: "{{ nexus_user }}"
+    group: "{{ nexus_group }}"
+    mode: '0640'
+    content: run_as_user="{{ nexus_user }}"
   notify: Restart nexus service
 
 - name: Set Java Home is defined
