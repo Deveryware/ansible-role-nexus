@@ -20,6 +20,9 @@ The default login credentials are : `admin / admin123`
 
 ## Default variables
 
+    nexus_download_url: 'https://download.sonatype.com/nexus/3/latest-unix.tar.gz' (Should be overwritten by 'https://download.sonatype.com/nexus/3/nexus-VERSION-linux-x86_64.tar.gz')
+    nexus_checksum_format: 'sha512' (md5, sha1, sha256, sha512 available)
+    nexus_checksum_url: "{{ nexus_checksum_format }}:{{ nexus_download_url }}.{{ nexus_checksum_format }}" (can be emptied to avoid checksum: '')
     nexus_application_port: 8081
     nexus_application_host: '0.0.0.0'
     nexus_user: 'nexus'
